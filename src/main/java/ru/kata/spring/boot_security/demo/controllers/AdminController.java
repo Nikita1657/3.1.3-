@@ -40,14 +40,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PutMapping ("/edit/{id}")
+    @PutMapping ("/edit/{id}") // использование правильных HTTP-методов
     public String updateUser(@PathVariable Long id, @ModelAttribute User user) {
         user.setId(id); // Устанавливаем ID пользователя
         userService.updateUser(id, user);
         return "redirect:/admin";
     }
 
-    @DeleteMapping ("/delete/{id}")
+    @DeleteMapping ("/delete/{id}") // использование правильных HTTP-методов
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";
