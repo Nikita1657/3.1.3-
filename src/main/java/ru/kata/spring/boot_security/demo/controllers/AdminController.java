@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +11,7 @@ import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import java.util.List;
-
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -40,14 +41,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PutMapping ("/edit/{id}")
+    @PutMapping ("/edit/{id}") // использование правильных HTTP-методов
     public String updateUser(@PathVariable Long id, @ModelAttribute User user) {
         user.setId(id); // Устанавливаем ID пользователя
         userService.updateUser(id, user);
         return "redirect:/admin";
     }
 
-    @DeleteMapping ("/delete/{id}")
+    @DeleteMapping ("/delete/{id}") // использование правильных HTTP-методов
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";
